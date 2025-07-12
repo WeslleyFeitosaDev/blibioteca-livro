@@ -75,12 +75,13 @@
         }
 
         .bnts {
-            position: relative;
+            bottom: 10px;
+            position: absolute;
             display: flex;
             width: 520px;
         }
 
-        .bnts button{
+        .bnts button,a{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -93,24 +94,29 @@
             transition: all .20s linear;
         }
 
-        .bnts button:first-child{
+        .bnts a{
+            text-decoration: none;
+            font-size: 13px;
             background-color: #1d165cff;
-            color: #94fff6ff;
+            color: #ffffffff;
         }
 
-        .bnts button:last-child{
+        .bnts button{
             position: absolute;
             right: 0;
             background-color: #ffffff;
             color: #1d165cff;
         }
 
-        .bnts button:first-child:hover{
-            color: #1d165cff;
-        }
+        
         .bnts button:hover{
             background-color: #ffcd94ff;
         }
+        .bnts a:hover{
+            background-color: #ffcd94ff;
+            color: #1d165cff;
+        }
+
 
         .bnts i{
             margin-right: 2px;
@@ -123,36 +129,36 @@
     <div class="box_add">
         <h1>Adicionar um Novo Livro</h1>
 
-        <form action="" method="POST">
+        <form action="{{route('livros.store')}}" method="POST">
             @csrf
             <div class="campo_titulo">
                 <label for="titulo">Titulo: </label>
-                <input type="text" placeholder="Digite o nome do livro" name="titulo" id="titulo">
+                <input type="text" placeholder="Digite o nome do livro" name="titulo" id="titulo" required>
             </div>
             <div class="campo_autor">
                 <label for="nome_autor">Nome do autor: </label>
-                <input type="text" placeholder="Digite o nome do autor" name="nome_autor" id="nome_autor" >
+                <input type="text" placeholder="Digite o nome do autor" name="ator" id="nome_autor" required>
             </div>
             <div class="campo_preco">
                 <label for="preco">Preço: </label>
-                <input type="text" placeholder="Digite o preço do livro" name="preco" id="preco" >
+                <input type="text" placeholder="Digite o preço do livro" name="preco" id="preco" required>
             </div>
             <div class="campo_categoria">
                 <label for="categoria">Categoria: </label>
-                <input type="text" placeholder="Digite a categoría" name="categoria" id="categoria">
+                <input type="text" placeholder="Digite a categoría" name="categoria" id="categoria" required>
             </div>
             <div class="campo_ano">
                 <label for="ano">Ano do livro: </label>
-                <input type="text" placeholder="Digite o ano do livro" name="ano" id="ano">
+                <input type="text" placeholder="Digite o ano do livro" name="ano_de_publicacao" id="ano" required>
             </div>
             
-            
+            <div class="bnts">
+                <a href="{{route('livros.index')}}"><i class='bx  bx-chevrons-left'></i>Voltar</a>
+                <button type="submit"><i class='bxr  bx-plus'  ></i>  Adicionar</button>
+            </div>
         </form>
         
-        <div class="bnts">
-             <button><i class='bx  bx-chevrons-left'></i>Voltar</button>
-            <button><i class='bxr  bx-plus'  ></i>  Adicionar</button>
-        </div>
+        
     </div>
     
 </body>

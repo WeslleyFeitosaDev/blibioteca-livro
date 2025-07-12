@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca</title>
+    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -67,9 +69,13 @@
         }
 
         .detalhes p{
-            font-size: 15px;
+            font-size: 13px;
             color: #0e0b2cff;
             
+        }
+        
+        .especificacaoes{
+            color: #ffcd9dff;
         }
 
         .bnts{
@@ -78,7 +84,12 @@
             position: relative;
         }
 
-        .bnts button{
+        #bntEditar,#bntExcluir{
+            font-size: 13px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center ;
             cursor: pointer;
             width: 80px;
             height: 30px;
@@ -88,42 +99,84 @@
             transition: all .20s linear;
         }
 
-        .bnts button:hover{
-            background-color: #ffcd94ff;
-        }
 
-        .bnts button:first-child{
+        .bnts a{
+            text-decoration: none;
             background-color: #1d165cff;
-            color: #94fff6ff;
+            color: #ffffffff;
         }
-        .bnts button:first-child:hover{
-            background-color: #ffcd94ff;
-            color: #1d165cff;
-        }
+        
 
-        .bnts button:last-child{
+        .bnts #bntExcluir{
             position: absolute;
             right: 0;
+            background-color: #ebeaeaff;
         }
+        .bnts a:hover{
+            background-color: #ffcd94ff;
+        }
+        .bnts #bntExcluir:hover{
+            background-color: #ffcd94ff;
+        }
+
+
+        .bnt_add_livro{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: 0;
+            position: absolute  ;
+            background-color: #1d165cff;
+            height: 100%;
+            width: 80px;
+            border-top-right-radius: 15px; 
+            border-bottom-right-radius: 15px; 
+        }
+        .bnt_add_livro i{
+            font-size: 30px;
+            color: #ffffff;
+            transition: all .20s linear;
+        }
+
+        .bnt_add_livro i:hover{
+            color: #ffcd94ff;
+        }
+        
     </style>
     
 </head>
 <body>
     <div class="box_livros">
         <h1>Veja os livros desponíveis</h1>
-        <div class="card_livro">
-            <div class="img"></div>
-            <div class="detalhes">
-                <p>Titulo: </p>
-                <p>Nome do autor : </p>
-                <p>Preço : </p>
-                <p>Categoria : </p>
-                <p>Ano de lançamento: </p>
-            </div>
-            <div class="bnts">
-                <button id="bntEditar">Editar</button>
-                <button id="bntEditar">Excluir</button>
-            </div>
+        
+        @if($livros->isEmpty())
+            <p>Não existem cursos</p>
+        @else
+            @foreach($livros as $livro)
+                <div class="card_livro">
+                    <div class="img"></div>
+                    <div class="detalhes">
+                        <p>Titulo: <strong class="especificacaoes">{{$livro->titulo}}</strong></p>
+                        <p>Nome do autor: <strong class="especificacaoes" >{{$livro->ator}}</strong></p>
+                        <p>Preço: <strong class="especificacaoes">{{$livro->preco}}</strong></p>
+                        <p>Categoria: <strong class="especificacaoes">{{$livro->categoria}}</strong></p>
+                        <p>Ano de lançamento: <strong class="especificacaoes">{{$livro->ano_de_publicacao}}</strong></p>
+                    </div>
+                    <div class="bnts">
+                        <a id="bntEditar"  href="{{route('livros.edit' , $livro->id )}}">Editar</a>
+                        <form action="{{route('livros.destroy', $livro->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" id="bntExcluir">Excluir</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
+        <div class="bnt_add_livro">
+            <a id="bntAdd"  href="{{route('livros.create')}}"><i class='bxr  bx-plus-circle'></i></a>
         </div>
     </div>
 </body>
